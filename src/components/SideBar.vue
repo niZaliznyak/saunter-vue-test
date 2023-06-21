@@ -11,13 +11,13 @@
     ></v-text-field>
     <v-list lines="two">
       <v-list-item
-        v-for="(item, i) in searchedItems"
+        v-for="(path, i) in filteredPaths"
         :key="i"
-        :title="item.title"
-        :subtitle="item.shortDescription"
-        @click.stop="select(item.id)"
+        :title="path.title"
+        :subtitle="path.shortDescription"
+        @click="$emit('select', path.id)"
         class="pa-1 ma-1"
-        :class="{'bg-blue' : item.id === selected}"
+        :class="{ 'bg-blue': path.id === selected }"
         style="cursor: pointer"
         rounded
         border
@@ -36,45 +36,26 @@
 </template>
 
 <script>
-let id = 0;
 export default {
+  emits: ['select'],
+  props: ["paths", "selected"],
   data() {
     return {
       search: "",
-      selected: null,
-      items: [
-        {
-          id: 1,
-          title: "Path title 12",
-          shortDescription: "Short description 1",
-          pathlength: "1000km",
-        },
-        {
-          id: 2,
-          title: "Path title 2",
-          shortDescription: "Short description 2",
-          pathlength: "2000km",
-        },
-      ],
     };
   },
-  methods: {
-    select(id) {
-      this.selected = id
-    }
-  },
   computed: {
-    searchedItems() {
+    filteredPaths() {
       return this.search
-        ? this.items.filter((item) => {
-            const { title, shortDescription } = item;
+        ? this.paths.filter((path) => {
+            const { title, shortDescription } = path;
 
             return (
               title.toLowerCase().includes(this.search.toLowerCase()) ||
               shortDescription.toLowerCase().includes(this.search.toLowerCase())
             );
           })
-        : this.items;
+        : this.paths;
     },
   },
 };
