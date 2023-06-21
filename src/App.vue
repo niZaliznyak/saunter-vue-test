@@ -1,9 +1,15 @@
 <template>
   <v-app>
     <v-app-bar title="Saunter" color="blue-lighten-5">
-      <v-btn variant="elevated" text="Add path" color="blue-lighten-1" />
+      <v-btn
+        variant="elevated"
+        text="Add path"
+        color="blue-lighten-1"
+        @click="openNewPathDialog = true"
+      />
     </v-app-bar>
     <SideBar :paths="paths" @select="(id) => select(id)" :selected="selected" />
+    <NewPathModal :open="openNewPathDialog" @close="openNewPathDialog = false"/>
     <v-main
       class="d-flex align-center justify-center"
       style="min-height: 300px"
@@ -15,6 +21,7 @@
 
 <script>
 import SideBar from "./components/SideBar.vue";
+import NewPathModal from "./components/NewPathModal.vue";
 
 let id = 0;
 export default {
@@ -35,6 +42,7 @@ export default {
           pathlength: "2000km",
         },
       ],
+      openNewPathDialog: false,
     };
   },
   methods: {
@@ -43,7 +51,8 @@ export default {
     },
   },
   components: {
-    SideBar
-  }
+    SideBar,
+    NewPathModal,
+  },
 };
 </script>
