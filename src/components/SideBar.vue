@@ -11,13 +11,13 @@
     ></v-text-field>
     <v-list lines="two">
       <v-list-item
-        v-for="(path, i) in filteredPaths"
-        :key="i"
+        v-for="path in filteredPaths"
+        :key="path.id"
         :title="path.title"
         :subtitle="path.shortDescription"
         @click="$emit('select', path.id)"
-        class="pa-1 ma-1"
-        :class="{ 'bg-blue': path.id === selected }"
+     
+        :class="{ 'bg-blue': path.id === selected, 'pa-1 ma-1': true }"
         style="cursor: pointer"
         rounded
         border

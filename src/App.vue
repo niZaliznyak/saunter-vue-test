@@ -5,11 +5,11 @@
         variant="elevated"
         text="Add path"
         color="blue-lighten-1"
-        @click="openNewPathDialog = true"
+        @click="onClick"
       />
     </v-app-bar>
     <SideBar :paths="paths" @select="(id) => select(id)" :selected="selected" />
-    <NewPathModal :open="openNewPathDialog" @close="openNewPathDialog = false"/>
+    <NewPathModal ref="newPathModelRef" />
     <v-main
       class="d-flex align-center justify-center"
       style="min-height: 300px"
@@ -23,7 +23,6 @@
 import SideBar from "./components/SideBar.vue";
 import NewPathModal from "./components/NewPathModal.vue";
 
-let id = 0;
 export default {
   data() {
     return {
@@ -48,6 +47,9 @@ export default {
   methods: {
     select(id) {
       this.selected = this.selected === id ? null : id;
+    },
+    onClick() {
+      this.$refs.newPathModelRef?.open()
     },
   },
   components: {
