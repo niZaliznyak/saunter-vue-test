@@ -41,7 +41,7 @@
             </v-form>
           </v-col>
           <v-col cols="12" sm="6">
-            <v-sheet class="ma-2 pa-2"> Map </v-sheet>
+            <MapView />
           </v-col>
         </v-row>
       </v-container>
@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import MapView from './MapView.vue';
+
 export default {
   data() {
     return {
@@ -81,6 +83,9 @@ export default {
       }
       return true;
     },
+  },
+  components: {
+    MapView
   },
 };
 </script>
